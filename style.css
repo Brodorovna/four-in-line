@@ -1,0 +1,17 @@
+.container {
+  margin: auto;
+  width: 400px;
+  height: 400px;
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+  grid-gap: 5px;
+}
+
+.container a {
+  border: 1px solid black;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 20px;
+  text-decoration: none;
+  color: rgb(56, 56, 56);
+}
