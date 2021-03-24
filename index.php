@@ -30,81 +30,37 @@ if (
             echo "<h4>Field is reserved</h4>";
         } else {
             (!array_key_exists('count', $entries)) ? $entries['count'] = 1 : $entries['count']++;
-            ($entries['count'] % 2 != 0) ?   $table[$r][$c] = 'x' : $table[$r][$c] = 'O';
-        }
+            $table[$r][$c] = ($entries['count'] % 2 != 0) ?  'x' : 'O';
+            saveEntries($entries);
 
-        saveEntries($entries);
+            
+        }
     }
 
     ////////And the winner is....
     /////Horizontal
-    if (@$table[$r][$c] == @$table[$r][($c - 1)]) {
-        if (@$table[$r][($c - 1)] == @$table[$r][($c - 2)]) {
-            if (@$table[$r][($c - 2)] == @$table[$r][($c - 3)]) {
-                echo "<h5>Game over, " . $table[$r][$c] . " WON!</h5>";
-                $endgame == 1;
-            }
-        }
-    }
 
-    if (@$table[$r][$c] == @$table[$r][($c + 1)]) {
-        if (@$table[$r][($c + 1)] == @$table[$r][($c + 2)]) {
-            if (@$table[$r][($c + 2)] == @$table[$r][($c + 3)]) {
-                echo "<h5>Game over, " . $table[$r][$c] . " WON!</h5>";
-                $endgame == 1;
-            }
-        }
-    }
+    $count_matches = 0;
+
+    checkWinner($count_matches, $table, $r, $c, 0, -1);
+    checkWinner($count_matches, $table, $r, $c, 0, 1);
+
+    $count_matches = 0;
 
     ////// Vertical
-    if (@$table[$r][$c] == @$table[($r + 1)][$c]) {
-        if (@$table[($r + 1)][($c)] == @$table[($r + 2)][$c]) {
-            if (@$table[($r + 2)][$c] == @$table[($r + 3)][$c]) {
-                echo "<h5>Game over, " . $table[$r][$c] . " WON!</h5>";
-                $endgame == 1;
-            }
-        }
-    }
+    checkWinner($count_matches, $table, $r, $c, 1, 0);
+    checkWinner($count_matches, $table, $r, $c, -1, 0);
+    $count_matches = 0;
 
     /////////Diagonal 1 low - up /
-    if (@$table[$r][$c] == @$table[($r + 1)][($c - 1)]) {
-        if (@$table[($r + 1)][($c - 1)] == @$table[($r + 2)][($c - 2)]) {
-            if (@$table[($r + 2)][($c - 2)] == @$table[($r + 3)][($c - 3)]) {
-                echo "<h5>Game over, " . $table[$r][$c] . " WON!</h5>";
-                $endgame == 1;
-            }
-        }
-    }
+    checkWinner($count_matches, $table, $r, $c, 1, -1);
+    checkWinner($count_matches, $table, $r, $c, 1, 1);
 
-    /////////Diagonal 2 low - up \
-    if (@$table[$r][$c] == @$table[($r + 1)][($c + 1)]) {
-        if (@$table[($r + 1)][($c + 1)] == @$table[($r + 2)][($c + 2)]) {
-            if (@$table[($r + 2)][($c + 2)] == @$table[($r + 3)][($c + 3)]) {
-                echo "<h5>Game over, " . $table[$r][$c] . " WON!</h5>";
-                $endgame == 1;
-            }
-        }
-    }
+    $count_matches = 0;
 
     /////////Diagonal 3  up - down /
-    if (@$table[$r][$c] == @$table[($r - 1)][($c + 1)]) {
-        if (@$table[($r - 1)][($c + 1)] == @$table[($r - 2)][($c + 2)]) {
-            if (@$table[($r - 2)][($c + 2)] == @$table[($r - 3)][($c + 3)]) {
-                echo "<h5>Game over, " . $table[$r][$c] . " WON!</h5>";
-                $endgame == 1;
-            }
-        }
-    }
-
-    /////////Diagonal 4  up - down \
-    if (@$table[$r][$c] == @$table[($r - 1)][($c - 1)]) {
-        if (@$table[($r - 1)][($c - 1)] == @$table[($r - 2)][($c - 2)]) {
-            if (@$table[($r - 2)][($c - 2)] == @$table[($r - 3)][($c - 3)]) {
-                echo "<h5>Game over, " . $table[$r][$c] . " WON!</h5>";
-                $endgame == 1;
-            }
-        }
-    }
+    checkWinner($count_matches, $table, $r, $c, -1, 1);
+    checkWinner($count_matches, $table, $r, $c, -1, -1);
 }
 
 
