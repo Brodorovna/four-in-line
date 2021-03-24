@@ -32,3 +32,24 @@ function resetEntries()
 {
     file_put_contents('four_line.json', json_encode('', true));
 }
+
+
+function checkWinner(&$count, $table, $r, $c, $y_diff = 0, $x_diff = 0) {
+    $value = @$table[$r][$c];
+    for ($i = 1; $i <= 3; $i++) {
+        $c = $c + $x_diff;
+        $r = $r + $y_diff;
+        if ($value == @$table[$r][$c]) {
+            $count++;
+        }
+        else {
+            break;
+        }
+    }
+
+    if ($count >= 3) {
+        echo "<h5>Game over, " . $table[$r][$c] . " WON!</h5>";
+    }
+
+    return $count;
+}
